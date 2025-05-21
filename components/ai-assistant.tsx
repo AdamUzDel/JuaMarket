@@ -30,7 +30,7 @@ export default function AIAssistant() {
       {isOpen && <div className="fixed inset-0 bg-black/50 z-30" onClick={toggleAssistant} />}
 
       <div
-        className={`fixed bottom-20 right-4 z-40 transition-transform duration-300 ${
+        className={`fixed bottom-24 right-4 z-40 transition-transform duration-300 ${
           isOpen ? "translate-y-0" : "translate-y-[calc(100%+80px)]"
         }`}
       >
@@ -96,8 +96,7 @@ export default function AIAssistant() {
       {!isOpen && (
         <button
           onClick={toggleAssistant}
-          className="fixed bottom-20 right-4 p-3.5 rounded-full shadow-lg z-30 bg-jua-blue"
-          style={{ transform: "translateY(80px)" }}
+          className="fixed bottom-24 right-4 p-3.5 rounded-full shadow-lg z-30 bg-jua-blue"
         >
           <MessageSquare className="h-6 w-6 text-white" />
         </button>

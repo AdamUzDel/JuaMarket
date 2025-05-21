@@ -1,11 +1,10 @@
 "use client"
 
 import { useState } from "react"
-import { ChevronUp, Star } from "lucide-react"
+import { ChevronUp, Star, RefreshCw } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { toast } from "sonner"
-import Image from 'next/image'
 
 const products = [
   {
@@ -14,7 +13,7 @@ const products = [
     price: "15,000 UGX",
     rating: 4.8,
     reviews: 124,
-    image: "/placeholder.svg?height=200&width=200",
+    image: "/images/matooke-fresh-bundle.jpeg?height=200&width=200",
     seller: "Kampala Farmers Co-op",
     discount: "20% OFF",
   },
@@ -24,7 +23,7 @@ const products = [
     price: "25,000 UGX",
     rating: 4.9,
     reviews: 89,
-    image: "/placeholder.svg?height=200&width=200",
+    image: "/images/kitenge-fabric.jpg?height=200&width=200",
     seller: "Dar Textiles",
     discount: "Buy 1 Get 1 Free",
   },
@@ -34,7 +33,7 @@ const products = [
     price: "75,000 UGX",
     rating: 4.7,
     reviews: 203,
-    image: "/placeholder.svg?height=200&width=200",
+    image: "/images/top-solar-powered-power-banks-for-2025-940135.webp?height=200&width=200",
     seller: "TechHub Nairobi",
     discount: "New Arrival",
   },
@@ -44,7 +43,7 @@ const products = [
     price: "18,500 UGX",
     rating: 5.0,
     reviews: 56,
-    image: "/placeholder.svg?height=200&width=200",
+    image: "/images/hand-made-sisal-basket.jpg?height=200&width=200",
     seller: "Rwanda Crafts Association",
     discount: "Limited Stock",
   },
@@ -52,6 +51,7 @@ const products = [
 
 export default function ProductFeed() {
   const [currentIndex, setCurrentIndex] = useState(0)
+  const [isRefreshing, setIsRefreshing] = useState(false)
 
   const handleSwipeUp = () => {
     setCurrentIndex((prev) => (prev + 1) % products.length)
@@ -67,11 +67,29 @@ export default function ProductFeed() {
     })
   }
 
+  const handleRefresh = () => {
+    setIsRefreshing(true)
+    // Simulate refresh
+    setTimeout(() => {
+      setIsRefreshing(false)
+      toast.success("Feed refreshed with new deals!")
+    }, 1000)
+  }
+
   const currentProduct = products[currentIndex]
 
   return (
     <section className="py-4">
-      <h2 className="text-lg font-semibold mb-3 font-poppins text-jua-blue">Discover Deals</h2>
+      <div className="flex items-center justify-between mb-3">
+        <h2 className="text-lg font-semibold font-poppins text-jua-blue">Discover Deals</h2>
+        <button
+          onClick={handleRefresh}
+          className="text-jua-orange hover:text-jua-orange/80 transition-colors"
+          disabled={isRefreshing}
+        >
+          <RefreshCw className={`h-5 w-5 ${isRefreshing ? "animate-spin" : ""}`} />
+        </button>
+      </div>
 
       <div className="feed-container relative overflow-hidden rounded-xl">
         <Card className="product-card border-0 shadow-md h-full">
@@ -80,11 +98,9 @@ export default function ProductFeed() {
               <div className="absolute top-2 left-2 z-10 bg-jua-orange text-white px-2 py-1 rounded-full text-xs font-medium">
                 {currentProduct.discount}
               </div>
-              <Image
+              <img
                 src={currentProduct.image || "/placeholder.svg"}
                 alt={currentProduct.name}
-                width={200}
-                height={200}
                 className="w-full h-48 object-cover"
               />
             </div>

@@ -5,6 +5,7 @@ import { ChevronUp, Star } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { toast } from "sonner"
+import Image from 'next/image'
 
 const products = [
   {
@@ -79,9 +80,11 @@ export default function ProductFeed() {
               <div className="absolute top-2 left-2 z-10 bg-jua-orange text-white px-2 py-1 rounded-full text-xs font-medium">
                 {currentProduct.discount}
               </div>
-              <img
+              <Image
                 src={currentProduct.image || "/placeholder.svg"}
                 alt={currentProduct.name}
+                width={200}
+                height={200}
                 className="w-full h-48 object-cover"
               />
             </div>
